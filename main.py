@@ -44,7 +44,12 @@ def giveMoney(Kassierer, price: float):
             userInput = float(userInput_str)
             if userInput < price:
                 raise NotEnoughMoney
-            Kassierer.calculateChange(userInput, price)
+
+            #Hier befindet sich die Lösung zur Aufgabe
+
+            #Kassierer.calculateChange(userInput, price)
+
+            Kassierer.calculateChangeMoney(userInput, price)
             break
         except ValueError:
             print("Bitte gib eine Zahl ein!")

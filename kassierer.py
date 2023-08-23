@@ -1,12 +1,11 @@
 from spieler import Spieler
-from decimal import Decimal
 
 class Kassierer(Spieler):
 
     def __init__(self, name: str, cakes_with_prices: tuple):
         super().__init__(name)
         self.cakes_with_prices = cakes_with_prices
-        self.changeMoney = [Decimal(str(value)) for value in [50.0, 20.0, 10.0, 5.0, 2.0, 1.0, 0.5, 0.2, 0.1, 0.05, 0.02, 0.01]]
+        self.changeMoney_float = [50.00, 20.00, 10.00, 5.00, 2.00, 1.00, 0.50, 0.20, 0.10, 0.05, 0.02, 0.01]
 
     def calculatePrice(self, kuchen: str, numberOfCoffee: int):
         price = 0
@@ -17,21 +16,20 @@ class Kassierer(Spieler):
         print(f"Das macht dann {price}€, bitte.")
         return price
 
+    def calculateChangeMoney(self, money: float, price: float):
+        change = money - price
+        print(f"Hier ist ihr Wechselgeld von {round(change,2)}€, bitte.")
+
     def calculateChange(self, money: float, price: float):
-        money_float = money
-        price_float = price
-
-        money_decimal = Decimal(str(money_float))
-        price_decimal = Decimal(str(price_float))
-
-        change = money_decimal - price_decimal
+        change = money - price
         # find the biggest coin or bill that is smaller than the change
-        for i in self.changeMoney:
+        for i in self.changeMoney_float:
             if i <= change:
                 # calculate how many of this coin or bill fit into the change
                 numberOfCoins = int(change // i)
                 # calculate the new change
-                change -= numberOfCoins * i
+                change = round(change - numberOfCoins * i, 2)
                 # print the change
+                print (change)
                 print(f"Hier sind {numberOfCoins} x {i}€")
         return change
